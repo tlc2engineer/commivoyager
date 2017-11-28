@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Задача коммивояжера</title>
+    <link rel="stylesheet" href="/css/bootstrap.css" />
+    <link rel="stylesheet" href="/css/commi.css" />
+    <script src="/js/jquery-3.2.1.min.js"></script>
+</head>
+<body>
+<div class="container">
+    <div class="container" id="head">
+    <h2>Реализация задачи коммивояжера. Алгоритм Литтла.</h2>
+    <form>Количество точек<input  id="np" value="20"><button id="calcBtn" type="submit">Рассчет</button></form>
+    <br/>
+    <p>Число итераций: <span id="count"></span>. Время: <span id="time"></span>c Число точек: <span id="N"> </span>  </p>
+    </div>
+    <div id="draw" class="container">
+
+    </div>
+    <script>
+        var n=20
+        $("form").bind("submit", function() {
+            $("#draw").html("<h3>Вычисления</h3>")
+            n=document.getElementById("np").value
+            //("button").css("visibility: hidden;")
+            loadData();
+            //("button").css("visibility: visible;")
+            return false; })
+        $("#draw").html("<h3>Вычисления</h3>")
+        function loadData() {
+            $("#draw").load("/getSVG?num="+n,function(){
+                $.ajax({
+                    url: "/getCalcData",
+                    cache: false,
+                    success: function(html){
+                        count=html["Count"];
+                        time=html["Time"]
+                        n=html["N"]
+                        $("#count").html(count)
+                        $("#time").html(time)
+                        $("#N").html(n)
+
+                    }
+                });
+            });
+        }
+        $("#draw").html("<h3>Окно результатов</h3>")
+        //loadData();
+
+
+    </script>
+</div>
+</body>
+</html>

@@ -1,0 +1,173 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Данные</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script src="/js/jquery-3.2.1.min.js"></script>
+    <script src="/js/bootstrap-datepicker.min.js"></script>
+    <script src="/js/locales/bootstrap-datepicker.ru.min.js"></script>
+    <link rel="stylesheet" href="/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="/css/base.css"/>
+</head>
+<body onload="init()">
+<div class="container" >
+    <a href="/" th:href="@{/}">Главная</a>
+   
+<div><h3>Сообщения </h3></div>
+<form action="/filter" method="post" th:object="${dform}">
+<div id="filter">
+Фильтр <input type="checkbox" checked="checked" th:field="*{filter}"/>
+По дате <input type="checkbox" checked="checked" th:field="*{dateFilter}"/>
+
+<input type="text" class="datepicker" th:field="*{messDate}" />
+
+ Бригада
+  
+	<select  id="brigade_selector" th:field="*{brigade}">
+	<option th:value="Все" th:text="Все"></option>
+				<option width="100"  th:each="brigade : ${brigades}" th:value="${brigade.name}" th:text="${brigade.name}" >${brigade.name}</option>
+	</select>
+	Место
+	<select  id="place_selector" th:field="*{place}">
+	<option th:value="Все" th:text="Все"></option>
+				<option width="100"  th:each="place : ${places}" th:value="${place.name}" th:text="${place.name}" >${place.name}</option>
+	</select>
+	Объект
+	<select  id="object_selector" th:field="*{object}">
+	<option th:value="Все" th:text="Все"></option>
+				<option width="100"  th:each="object : ${objects}" th:value="${object.name}" th:text="${object.name}" >${place.name}</option>
+	</select>
+	</div>
+	
+	<div id="navigate">
+	Число сообщений
+	<input type="text" th:field="*{messPageCount}"/>
+	<button  type="submit" name="firstMessage" th:value="true"><img src="/img/bfirst.png" alt="Первый" 
+          style="vertical-align: middle"/></button>
+	<button type="submit" name="prevMessage" th:value="true"><img src="/img/prev.png"/></button>
+	
+	<input type="text" th:field="*{currPage}"/>
+	<button  type="submit" name="nextMessage" th:value="true"><img src="/img/next.png"/></button>
+	<button   type="submit" name="lastMessage" th:value="true" id="lastMessage"><img src="/img/blast.png" alt="Последний" 
+          style="vertical-align: middle"/> </button>
+	 Число страниц <span id="pageCount" th:text="${pageCount}"></span>Сортировка<select th:field="*{sort}"><option th:value="Дата">Дата</option><option th:value="ID">ID</option>
+	</select>
+	
+	<button  type="submit"><img src="/img/upd.png"/></button>
+	</div>
+	</form>
+	
+	<table><tr>
+	<td><form action="/delete" method="post" th:object="${dform}"> <button id="del_btn" name="delId" value="-1"><img src="/img/rem.png"/></button></form></td>
+	<td><form action="/add" method="get" > <button id="add_btn" name="addBtn" type="submit" ><img src="/img/add.png"/> </button></form></td>
+	<td><form action="/edit" method="get" > <button id="edit_btn" name="editBtn" type="submit" th:value="-1"><img src="/img/edit.png"/></button></form></td>
+	</tr></table>
+<div id="data_div">
+    <table id="log_data">
+        <tr>
+            <th>Номер</th>
+         	<th>Бригада</th>
+         	<th>Дата</th>
+         	<th>Место</th>
+         	<th>Объект</th>
+            <th>Текст</th>
+
+        </tr>
+        <tr th:each="log : ${logs}">
+            <td th:text="${log.id}">ID</td>
+            <td th:text="${log.brig_num}">ID</td>
+            <td th:text="${log.onlyDate}">ID</td>
+            <td th:text="${log.place.name}">ID</td>
+            <td th:text="${log.pobject.name}">ID</td>
+            <td th:text="${log.text}">Text</td>
+
+        </tr>
+    </table>
+   
+    </div>
+  <p th:text="${message}" th:class="${messClass}" >Message</p>
+</div>
+ 
+<script th:inline="javascript">
+/*<![CDATA[*/
+var places;
+var sel_id=-1;
+function init(){
+	 
+	$('.datepicker').datepicker({
+		 format: 'dd.mm.yyyy',
+		 language: "ru"
+		
+	});
+	 $("#place_selector").bind("change",onChange);
+     $.getJSON("/places", function(json){
+         places=json;
+         onChange();
+
+     });
+     function onChange(){
+         var selectorPlace=document.getElementById("place_selector");
+         var selectorObject=document.getElementById("object_selector");
+         var ind=selectorPlace.selectedIndex;
+         var obj_ind=selectorObject.selectedIndex
+         selObj=selectorObject.options[obj_ind]["value"]
+         if(ind==0){
+        	 selectorObject.options.length=0;
+        	 opt=new Option("Все");
+        	 selectorObject.options[0] = opt;
+        	 return;
+         }
+         place=selectorPlace.options[ind-1].value;
+         objects=places[ind-1]["pobjectlist"];
+         leng=objects.length;
+         selectorObject.options.length=0;
+        // alert(objects[0]["name"]);
+        
+        for(i=0;i<objects.length;i++){
+     	   var opt = new Option(objects[i]["name"]); 
+     	   selectorObject.options[i] = opt;
+     	   if(objects[i]["name"]==selObj){
+     		   opt.selected=true;
+     	   }
+        }
+        
+     }
+	$('#log_data tr').bind("click",onClick);
+	function onClick(tr){
+		//$('#log_data tr').addClass("nonselected");
+		$('#log_data tr').removeClass("selected");
+		$(this).addClass("selected");
+		sel_id=$(this).children("td:first").html();
+		//alert(sel_id);
+		
+	}
+	
+	$("#del_btn").bind("click",delMess);
+	function delMess(){
+		if(sel_id==-1){
+			alert("Не выбранов сообщение для удаления.");
+			return false;
+		}
+		else{
+			$("#del_btn").attr("value",sel_id);
+			return true;//alert("Удалить сообщение номер "+sel_id+" ?")
+			
+		}
+	}
+	$("#edit_btn").bind("click",editMess);
+	function editMess(){
+		if(sel_id==-1){
+			alert("Не выбранов сообщение для редактирования.");
+			return false;
+		}
+		else{
+			$("#edit_btn").attr("value",sel_id);
+			return true;//alert("Удалить сообщение номер "+sel_id+" ?")
+			
+		}
+	}
+}
+/*]]>*/
+</script>
+</body>
+</html>

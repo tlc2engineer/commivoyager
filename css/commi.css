@@ -1,0 +1,42 @@
+body{
+    background: whitesmoke;
+    font-size: 18px;
+}
+
+#count,#time,#N {
+    color: blue;
+    font-size: 20px;
+    margin-left: 5px;
+    margin-right: 3px;
+}
+#draw {
+    background: whitesmoke;
+    border-style: solid  ;
+    width: 600px;
+}
+#np {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+#head {
+    width: 600px;
+}
+
+button{
+    color: orange;
+    background: white;
+    font-size: 22px;
+
+}
+
+input{
+    font-size: 22px;
+}
+
+.hidden {
+    visibility: hidden;
+}
+
+.vis{
+    visibility: visible;
+}
