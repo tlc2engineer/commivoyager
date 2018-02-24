@@ -1,15 +1,15 @@
 package matrix
 
-type Node struct{
-	left* Node
-	right* Node
-	matrix* Matrix
-	moves* []Move
+type Node struct {
+	left   *Node
+	right  *Node
+	matrix *Matrix
+	moves  *[]Move
 }
 
-func (node* Node)  calc() Result{
-	m:=node.matrix
-	moves:=node.moves
+func (node *Node) calc() Result {
+	m := node.matrix
+	moves := node.moves
 	countIt++
 	if m.size == 2 {
 		*moves = h2matrix(m, moves)
@@ -39,31 +39,31 @@ func (node* Node)  calc() Result{
 	*moves = append(*moves, Move{r, c})
 	// -1 для левой ветки
 	cm.setEl(r, c, -1)
-	var res1,res2 Result
-	eval := func(mt *Matrix, mvs []Move,ch chan Result) {
+	var res1, res2 Result
+	eval := func(mt *Matrix, mvs []Move, ch chan Result) {
 		//time.Sleep(2)
 		ch <- mainRecFuncT(mt, &mvs)
 	}
-	if gorNumber<maxGorNumber && false{
+	if gorNumber < maxGorNumber && false {
 		ch1 := make(chan Result)
-		go eval(&cm, cmoves,ch1)
+		go eval(&cm, cmoves, ch1)
 		gorNumber++
 		res2 = mainRecFuncT(m, moves)
-		res1=<-ch1
+		res1 = <-ch1
 		gorNumber--
 		close(ch1)
 
-	}else{
-		node.right=&Node{nil,nil,m,moves}
+	} else {
+		node.right = &Node{nil, nil, m, moves}
 		res2 = node.right.calc()
-		node.right=nil
-		node.left=&Node{nil,nil,&cm,&cmoves}
+		node.right = nil
+		node.left = &Node{nil, nil, &cm, &cmoves}
 		res1 = node.left.calc()
-		node.left=nil
-		m=nil
-		moves=nil
-		cm.data=nil
-		cmoves=nil
+		node.left = nil
+		m = nil
+		moves = nil
+		cm.data = nil
+		cmoves = nil
 		//node.right=nil
 		//node.left=nil
 	}
@@ -81,4 +81,3 @@ func (node* Node)  calc() Result{
 	}
 	return res2
 }
-

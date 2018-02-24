@@ -11,10 +11,13 @@ import (
 )
 
 var bestResult float64 = -1
+
 //var bestMoves []Move
 var countIt = 0
-const maxGorNumber=50
-var gorNumber=0
+
+const maxGorNumber = 50
+
+var gorNumber = 0
 
 /**
 Установка лучшего результата
@@ -550,26 +553,26 @@ func mainRecFuncT(m *Matrix, moves *[]Move) Result {
 	*moves = append(*moves, Move{r, c})
 	// -1 для левой ветки
 	cm.setEl(r, c, -1)
-	var res1,res2 Result
-	eval := func(mt *Matrix, mvs []Move,ch chan Result) {
+	var res1, res2 Result
+	eval := func(mt *Matrix, mvs []Move, ch chan Result) {
 		//time.Sleep(2)
 		ch <- mainRecFuncT(mt, &mvs)
 	}
-	if gorNumber<maxGorNumber{
+	if gorNumber < maxGorNumber {
 		ch1 := make(chan Result)
-		go eval(&cm, cmoves,ch1)
+		go eval(&cm, cmoves, ch1)
 		gorNumber++
 		res2 = mainRecFuncT(m, moves)
-		res1=<-ch1
+		res1 = <-ch1
 		gorNumber--
 		close(ch1)
 
-	}else{
+	} else {
 		res2 = mainRecFuncT(m, moves)
-		res1 = mainRecFuncT(&cm, &cmoves)//<-ch1
+		res1 = mainRecFuncT(&cm, &cmoves) //<-ch1
 	}
-	m=nil
-	moves=nil
+	m = nil
+	moves = nil
 	if res1.Res == -1 && res2.Res == -1 {
 		return res1
 	}
@@ -704,10 +707,10 @@ func GetResult(points []Point) (Result, int) {
 	//node.matrix=&m
 	//node.moves=&moves
 	//node:=Node{nil,nil,&m,&moves}
-	res:=mainRecFuncT(&m, &moves)
+	res := mainRecFuncT(&m, &moves)
 	//node=nil
 	//debug.FreeOSMemory()
-	return res,countIt
+	return res, countIt
 
 }
 
@@ -742,3 +745,6 @@ func GetPFromString(s string) []Point {
 	}
 	return points
 }
+/*
+Конец файла.
+ */
