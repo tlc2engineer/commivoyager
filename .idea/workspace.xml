@@ -1,33 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="ba1373ad-0699-4885-993c-058f4c57731b" name="Default" comment="24 февраля пересоздал проект.">
-      <change beforePath="" afterPath="$PROJECT_DIR$/cpu.out" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/heap" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/main_test.go" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/matrix/struct_calc.go" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/base.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/bootstrap.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/commi.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/log.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/css/tbase.css" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/html/base.html" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/static/js/jquery-3.2.1.min.js" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/moves.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/moves1.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/moves2.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/points.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/points1.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/test_data/points2.txt" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/trace" />
+    <list default="true" id="ba1373ad-0699-4885-993c-058f4c57731b" name="Default" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/matrix/matrix.go" afterPath="$PROJECT_DIR$/matrix/matrix.go" />
-      <change beforePath="$PROJECT_DIR$/server.go" afterPath="$PROJECT_DIR$/server.go" />
-      <change beforePath="$PROJECT_DIR$/templ/commi.html" afterPath="$PROJECT_DIR$/templ/commi.html" />
-      <change beforePath="$PROJECT_DIR$/templ/data.html" afterPath="$PROJECT_DIR$/templ/data.html" />
-      <change beforePath="$PROJECT_DIR$/templ/log.html" afterPath="$PROJECT_DIR$/templ/log.html" />
-      <change beforePath="$PROJECT_DIR$/templ/tbase.html" afterPath="$PROJECT_DIR$/templ/tbase.html" />
-      <change beforePath="$PROJECT_DIR$/test_client.go" afterPath="" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
